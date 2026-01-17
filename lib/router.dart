@@ -12,7 +12,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/files',
     routes: [
       ShellRoute(
-        builder: (context, state, child) => AppScaffold(child: child),
+        builder: (context, state, child) => AppScaffold(child: child, currentPath: state.uri.path),
         routes: [
           GoRoute(path: '/files', builder: (_, __) => const FilesScreen()),
           GoRoute(path: '/cleanup', builder: (_, __) => const CleanupScreen()),
@@ -26,8 +26,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 });
 
 class AppScaffold extends StatelessWidget {
-  const AppScaffold({super.key, required this.child});
+  const AppScaffold({super.key, required this.child, required this.currentPath});
   final Widget child;
+  final String currentPath;
 
   int _indexForLocation(String location) {
     if (location.startsWith('/cleanup')) return 1;
@@ -55,8 +56,7 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final path = GoRouterState.of(context).uri.path;
-    final currentIndex = _indexForLocation(path);
+    final currentIndex = _indexForLocation(currentPath);
     return Scaffold(
       body: SafeArea(child: child),
       bottomNavigationBar: NavigationBar(

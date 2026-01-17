@@ -3,6 +3,10 @@
         android:label="my_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- AdMob test App ID to avoid SDK init crashes in debug -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,7 +34,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-</application>
+    </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
